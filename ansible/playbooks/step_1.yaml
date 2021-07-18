@@ -1,0 +1,16 @@
+---
+- name: "Paso 1 - Configuracion inicial"
+  hosts: all
+  become: true
+  become_user: root
+
+  pre_tasks:
+    - debug:
+        msg: 'DEBUG - Iniciando la configuracion inicial basica.'
+
+  roles:
+    - initial_configuration
+
+  post_tasks:
+    - debug:
+        msg: 'DEBUG - Configuracion inicial finalizada.'

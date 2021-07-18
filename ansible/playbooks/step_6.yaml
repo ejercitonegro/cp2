@@ -1,0 +1,13 @@
+---
+- name: "Paso 6 - Despliegue de ingress controller."
+  hosts: master
+  become: true
+  tasks:
+    - name: "INGRESS CONTROLLER - Despliegue desde fichero"
+      command: "kubectl apply -f https://raw.githubusercontent.com/haproxytech/kubernetes-ingress/v1.5/deploy/haproxy-ingress.yaml"
+      register: kubectl_ingress
+
+    - name: "DEBUG - INGRESS CONTROLLER"
+      fail:
+        msg: "ERROR - Se ha producido un error en el despliegue del INGRESS CONTROLLER"
+      when: kubectl_ingress.rc != 0

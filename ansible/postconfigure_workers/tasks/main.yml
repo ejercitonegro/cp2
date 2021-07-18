@@ -1,0 +1,25 @@
+---
+# tasks file for postconfigure_workers
+- name:
+  debug:
+    var: contents
+
+- name: "PUERTOS - Apertura de puertos para la SDN"
+  firewalld:
+    port: "{{ item }}"
+    permanent: true
+    reload: true
+    state: enabled
+    zone: public
+  with_items:
+    - 10250/tcp
+    - 30000-32767/tcp
+
+- name: "Unir los workers al cluster de kubernetes"
+  command: "{{ contents }}"
+  register: kubeadmin_output
+
+- name: "DEBUG - union de los workers al cluster de kubernetes"
+  fail:
+    msg: "ERROR - Se ha producido un error en la union de los workers al cluster de kubernetes"
+  when: kubeadmin_output != 0

@@ -1,0 +1,14 @@
+---
+- name: "Paso 8 - Despliegue de httpd"
+  hosts: all
+
+  pre_tasks:
+    - debug:
+        msg: 'DEBUG - Iniciando el despliegue de httpd.'
+
+  roles:
+    - deploy_apache
+
+  post_tasks:
+    - debug:
+        msg: 'DEBUG - Despliegue de httpd finalizado.'

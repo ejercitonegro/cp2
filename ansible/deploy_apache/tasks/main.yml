@@ -1,0 +1,28 @@
+---
+# tasks file for deploy_apache
+- name: "KUBERNETES - Crear deployment"
+  shell: "kubectl create deployment httpd-test --image=httpd:latest"
+  register: kube_deploy
+
+- name: "KUBERNETES - Debug - Crear deployment"
+  fail:
+    msg: "KUBERNETES - Se ha producido un error en el proceso de generacion de un deployment"
+  when: kube_deploy.rc != 0
+
+- name: "KUBERNETES - Exponer deployment a traves del puerto 80"
+  shell: "kubectl expose deployment httpd --type=NodePort --port=80"
+  register: kube_expose
+
+- name: "KUBERNETES - Debug - Exponer deployment a traves del puerto 80"
+  fail:
+    msg: "KUBERNETES - Se ha producido un error a la hora de exponer el httpd por el puerto 80"
+  when: kube_expose.rc != 0
+
+- name: "KUBERNETES - Escalar el deployment"
+  shell: "kubectl scale deployment --replicas=2 httpd-test"
+  register: kube_scale
+
+- name: "KUBERNETES - Debug - Escalar el deployment"
+  fail:
+    msg: "KUBERNETES - Se ha producido un error a la hora de escalar el deployment"
+  when: kube_scale.rc != 0

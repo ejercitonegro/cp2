@@ -1,0 +1,3 @@
+---
+# vars file for postconfigure_workers
+contents: "{{ lookup('file', '/home/pablo/ansible/kubeadm.txt') }}"

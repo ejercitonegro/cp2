@@ -1,0 +1,40 @@
+---
+- name: "Paso 7 - Creacion usuario no administrador"
+  hosts: master
+  become: true
+  tasks:
+
+    - name: "GRUPO - No admin"
+      user:
+        name: kubeadmin
+        state: present
+
+    - name: "USUARIO - No admin"
+      user:
+        name: kubeadmin
+        group: kubeadmin
+        shell: /bin/bash
+        home: /home/kubeadmin
+    
+    - name: "PATH -  /home/kubeadmin/.kube"
+      file:
+        path: /home/kubeadmin/.kube
+        state: directory
+        owner: kubeadmin
+        group: kubeadmin
+
+    - name: "CONF - Copiar fichero de configuracion de kubernetes"
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/kubeadmin/.kube/config
+        remote_src: yes
+        owner: kubeadmin
+        group: kubeadmin
+
+    - name: "SUDOERS - Permisos a usuario no admin"
+      copy:
+        dest: "/etc/sudoers.d/kubeadmin"
+        content: |
+          ALL            ALL = (ALL) NOPASSWD: ALL
+        owner: root
+        group: root
