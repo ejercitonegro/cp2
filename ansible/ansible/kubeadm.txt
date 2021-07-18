@@ -1,1 +1,0 @@
-kubeadm join 10.0.1.10:6443 --token 4egypb.32aoqis9a2mpxhbd --discovery-token-ca-cert-hash sha256:0c6932486f6f74e2d8c104eea42d193d834783bbd06b1a55bab73ac88e2710f8 
