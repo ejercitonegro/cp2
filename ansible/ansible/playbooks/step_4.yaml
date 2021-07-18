@@ -1,0 +1,14 @@
+---
+- name: "Paso 4 - Tareas de configuracion y despliegue de kubernetes en el master"
+  hosts: all
+
+  pre_tasks:
+    - debug:
+        msg: 'DEBUG - Iniciando la configuracion y despliegue de kubernetes en el master.'
+
+  roles:
+    - configure_master
+
+  post_tasks:
+    - debug:
+        msg: 'DEBUG - Tareas de configuracion y despliegue de kubernetes en el master.'

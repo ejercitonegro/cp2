@@ -1,0 +1,10 @@
+[all:vars]
+ansible_user=adminUsername
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[master]
+vm-master.westeurope.cloudapp.azure.com
+
+[workers]
+vm-worker01.westeurope.cloudapp.azure.com
+vm-worker02.westeurope.cloudapp.azure.com

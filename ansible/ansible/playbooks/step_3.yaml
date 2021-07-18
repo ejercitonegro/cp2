@@ -1,0 +1,15 @@
+---
+- name: "Paso 3 - Tareas de configuracion comunes"
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - debug:
+        msg: 'DEBUG - Iniciando la configuracion comun en todos los nodos.'
+
+  roles:
+    - common_tasks
+
+  post_tasks:
+    - debug:
+        msg: 'DEBUG - Tareas de configuracion comunes finalizada.'
